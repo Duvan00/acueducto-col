@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    environment:
+      POSTGRES_USER: acueducto
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-acueducto}
+      POSTGRES_DB: acueducto
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U acueducto"]
+      interval: 5s
+      retries: 10
+  app:
+    build: .
+    environment:
+      DATABASE_URL: postgresql://acueducto:${DB_PASSWORD:-acueducto}@db:5432/acueducto
+      TOKEN_ADMIN: ${TOKEN_ADMIN:-}
+    ports: ["8000:8000"]
+    depends_on:
+      db: {condition: service_healthy}
+volumes:
+  pgdata:

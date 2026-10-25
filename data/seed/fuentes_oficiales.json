@@ -1,0 +1,81 @@
+{
+  "_nota": "Inventario de fuentes oficiales y su nivel de desagregación. Las URL se revisaron el 2026-10-25 mediante buscadores; los portales del DANE no fueron accesibles desde el entorno de desarrollo, por lo que los nombres exactos de archivo deben confirmarse al descargar. 'acceso' indica el mecanismo de integración.",
+  "fuentes": [
+    {
+      "id": "divipola",
+      "producto": "DIVIPOLA — Codificación de la División Político-Administrativa",
+      "entidad": "DANE",
+      "url": "https://geoportal.dane.gov.co/geovisores/territorio/consulta-divipola-division-politico-administrativa-de-colombia/",
+      "alternativa": "Portal de datos abiertos www.datos.gov.co (API SODA, conjunto 'DIVIPOLA - Códigos municipios'; identificador a confirmar en el portal)",
+      "desagregacion": "Departamento (2 dígitos), municipio (5), centro poblado (8: cabecera CM, corregimiento C, inspección IP, caserío CAS…)",
+      "contiene_poblacion": false,
+      "acceso": "API SODA (JSON) o descarga XLSX/CSV → importador divipola",
+      "tipo_dato": "oficial (codificación administrativa)"
+    },
+    {
+      "id": "cnpv2018",
+      "producto": "Censo Nacional de Población y Vivienda 2018 (CNPV 2018)",
+      "entidad": "DANE",
+      "url": "https://www.dane.gov.co/index.php/estadisticas-por-tema/demografia-y-poblacion/censo-nacional-de-poblacion-y-vivenda-2018",
+      "desagregacion": "Nacional, departamento, municipio, área (cabecera / centros poblados y rural disperso); en el MGN integrado: sector, sección y manzana (urbana); centros poblados",
+      "contiene_poblacion": true,
+      "acceso": "Cuadros de resultados XLSX, REDATAM, microdatos (ANDA) → importador censo",
+      "tipo_dato": "censo_oficial_dane",
+      "advertencia": "Población censada sin ajuste por omisión. La población 'conciliada' que usan las proyecciones difiere de la censada."
+    },
+    {
+      "id": "mgn_cnpv2018",
+      "producto": "Marco Geoestadístico Nacional (MGN) integrado con resultados del CNPV 2018",
+      "entidad": "DANE",
+      "url": "https://geoportal.dane.gov.co/servicios/descarga-y-metadatos/datos-geoestadisticos/",
+      "desagregacion": "Departamento, municipio, clase, sector y sección rural/urbana, manzana; atributos de personas, viviendas y hogares por unidad",
+      "contiene_poblacion": true,
+      "acceso": "Shapefile / geodatabase → importador de capas (geo.cargar_capa) + tabla de atributos",
+      "tipo_dato": "censo_oficial_dane (atributos) / oficial (geometría)",
+      "advertencia": "Los nombres de campos (p. ej. personas, viviendas, hogares) deben confirmarse en el diccionario de datos de la versión descargada."
+    },
+    {
+      "id": "veredas",
+      "producto": "Capa de veredas de Colombia",
+      "entidad": "DANE (geoportal) / IGAC / entidades territoriales",
+      "url": "https://geoportal.dane.gov.co/",
+      "desagregacion": "Vereda (límites de referencia, no oficiales para efectos legales)",
+      "contiene_poblacion": false,
+      "acceso": "Shapefile → importador de capas; relación con sectores censales por intersección",
+      "tipo_dato": "oficial_otra_entidad (geometría de referencia)",
+      "advertencia": "Las veredas no forman parte de la división censal: no tienen población oficial."
+    },
+    {
+      "id": "censo2005",
+      "producto": "Censo General 2005",
+      "entidad": "DANE",
+      "url": "https://www.dane.gov.co/index.php/estadisticas-por-tema/demografia-y-poblacion/censo-general-2005-1",
+      "desagregacion": "Municipio y área (cabecera / resto); REDATAM con mayor desagregación",
+      "contiene_poblacion": true,
+      "acceso": "Cuadros XLSX / REDATAM → importador censo",
+      "tipo_dato": "censo_oficial_dane"
+    },
+    {
+      "id": "censo1993",
+      "producto": "Censo Nacional de Población y Vivienda 1993",
+      "entidad": "DANE",
+      "url": "https://www.dane.gov.co/",
+      "desagregacion": "Municipio y área (cabecera / resto)",
+      "contiene_poblacion": true,
+      "acceso": "Cuadros históricos / REDATAM → importador censo",
+      "tipo_dato": "censo_oficial_dane",
+      "advertencia": "Verifique la comparabilidad territorial: municipios creados después de 1993 no tienen dato propio."
+    },
+    {
+      "id": "proyecciones_municipales",
+      "producto": "Proyecciones de población municipal por área 2018-2042 y retroproyecciones 1985-2017 (base CNPV 2018)",
+      "entidad": "DANE",
+      "url": "https://www.dane.gov.co/index.php/estadisticas-por-tema/demografia-y-poblacion/proyecciones-de-poblacion",
+      "desagregacion": "Municipio × área (total, cabecera, centros poblados y rural disperso); versión con sexo y edad",
+      "contiene_poblacion": true,
+      "acceso": "XLSX → importador proyecciones (formato largo o ancho)",
+      "tipo_dato": "proyeccion_oficial_dane",
+      "advertencia": "La página oficial registra una actualización del 8 de agosto de 2025; importe cada versión con su fecha para conservar las anteriores."
+    }
+  ]
+}

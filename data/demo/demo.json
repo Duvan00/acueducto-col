@@ -1,0 +1,49 @@
+{
+  "_advertencia": "TODOS LOS VALORES DE ESTE ARCHIVO SON FICTICIOS. Sirven sólo para probar la aplicación sin conexión a las fuentes del DANE. Las geometrías se ubican deliberadamente en el océano Pacífico para que no puedan confundirse con un lugar real.",
+  "fuente": {"entidad": "DATOS FICTICIOS DE DEMOSTRACIÓN", "producto": "Conjunto de prueba — no corresponde a ninguna fuente oficial", "version": "1"},
+  "departamento": {"codigo": "XX", "nombre": "DEPARTAMENTO DE DEMOSTRACIÓN (FICTICIO)"},
+  "municipio": {"codigo": "XX001", "nombre": "MUNICIPIO DEMOSTRACIÓN (FICTICIO)", "altitud_msnm": 1650,
+                "centro": [-79.60, 4.05]},
+  "unidades": [
+    {"codigo": "XX001000", "tipo": "cabecera_municipal", "nombre": "Cabecera Demostración (FICTICIO)", "clase": "urbano",
+     "centro": [-79.60, 4.05], "radio": 0.012, "altitud_msnm": 1650},
+    {"codigo": "XX001001", "tipo": "centro_poblado", "nombre": "Centro Poblado El Cruce (FICTICIO)", "clase": "rural",
+     "centro": [-79.52, 4.10], "radio": 0.006, "altitud_msnm": 1820},
+    {"codigo": "V-XX001-01", "tipo": "vereda", "nombre": "Vereda El Roble (FICTICIA)", "sistema": "LOCAL",
+     "poligono": [[-79.56,4.06],[-79.50,4.06],[-79.50,4.13],[-79.56,4.13],[-79.56,4.06]], "altitud_msnm": 1900},
+    {"codigo": "V-XX001-02", "tipo": "vereda", "nombre": "Vereda La Palma (FICTICIA)", "sistema": "LOCAL",
+     "poligono": [[-79.66,4.07],[-79.61,4.07],[-79.61,4.12],[-79.66,4.12],[-79.66,4.07]], "altitud_msnm": 1750},
+    {"codigo": "V-XX001-03", "tipo": "vereda", "nombre": "Vereda San Isidro (FICTICIA)", "sistema": "LOCAL",
+     "poligono": [[-79.66,3.98],[-79.59,3.98],[-79.59,4.035],[-79.66,4.035],[-79.66,3.98]], "altitud_msnm": 1500},
+    {"codigo": "V-XX001-04", "tipo": "vereda", "nombre": "Vereda Alto Bonito (FICTICIA)", "sistema": "LOCAL",
+     "poligono": [[-79.585,3.99],[-79.50,3.99],[-79.50,4.055],[-79.585,4.055],[-79.585,3.99]], "altitud_msnm": 2150}
+  ],
+  "municipio_poligono": [[-79.68,3.97],[-79.48,3.97],[-79.48,4.15],[-79.68,4.15],[-79.68,3.97]],
+  "censos": [
+    {"codigo": "XX001", "area": "total", "anio": 1993, "serie": "CNPV1993", "poblacion": 8400},
+    {"codigo": "XX001", "area": "total", "anio": 2005, "serie": "CG2005", "poblacion": 10150, "hombres": 5060, "mujeres": 5090, "viviendas": 2710, "hogares": 2650},
+    {"codigo": "XX001", "area": "total", "anio": 2018, "serie": "CNPV2018", "poblacion": 11980, "hombres": 5930, "mujeres": 6050, "viviendas": 3820, "viviendas_ocupadas": 3510, "hogares": 3650},
+    {"codigo": "XX001", "area": "cabecera", "anio": 1993, "serie": "CNPV1993", "poblacion": 5100},
+    {"codigo": "XX001", "area": "cabecera", "anio": 2005, "serie": "CG2005", "poblacion": 6600},
+    {"codigo": "XX001", "area": "cabecera", "anio": 2018, "serie": "CNPV2018", "poblacion": 7900, "viviendas": 2400, "viviendas_ocupadas": 2280, "hogares": 2390},
+    {"codigo": "XX001", "area": "centros_poblados_rural_disperso", "anio": 1993, "serie": "CNPV1993", "poblacion": 3300},
+    {"codigo": "XX001", "area": "centros_poblados_rural_disperso", "anio": 2005, "serie": "CG2005", "poblacion": 3550},
+    {"codigo": "XX001", "area": "centros_poblados_rural_disperso", "anio": 2018, "serie": "CNPV2018", "poblacion": 4080, "viviendas": 1420, "viviendas_ocupadas": 1230, "hogares": 1260},
+    {"codigo": "XX001000", "area": "total", "anio": 1993, "serie": "CNPV1993", "poblacion": 5100},
+    {"codigo": "XX001000", "area": "total", "anio": 2005, "serie": "CG2005", "poblacion": 6600},
+    {"codigo": "XX001000", "area": "total", "anio": 2018, "serie": "CNPV2018", "poblacion": 7900, "viviendas_ocupadas": 2280, "hogares": 2390},
+    {"codigo": "XX001001", "area": "total", "anio": 2005, "serie": "CG2005", "poblacion": 610},
+    {"codigo": "XX001001", "area": "total", "anio": 2018, "serie": "CNPV2018", "poblacion": 742, "viviendas_ocupadas": 221, "hogares": 228}
+  ],
+  "proyeccion": {"serie": "PROY_MUN_AREA_DEMO", "anio_inicial": 2018, "anio_final": 2042,
+                 "tasas": {"total": 0.0090, "cabecera": 0.0118, "centros_poblados_rural_disperso": 0.0035},
+                 "base": {"total": 12150, "cabecera": 8010, "centros_poblados_rural_disperso": 4140}},
+  "campo": [
+    {"codigo": "V-XX001-01", "anio": 2024, "variable": "poblacion", "valor": 412,
+     "soporte": "Censo comunitario de la JAC, acta 03/2024 (FICTICIO)"},
+    {"codigo": "V-XX001-01", "anio": 2024, "variable": "viviendas_ocupadas", "valor": 118,
+     "soporte": "Censo comunitario de la JAC, acta 03/2024 (FICTICIO)"},
+    {"codigo": "V-XX001-02", "anio": 2025, "variable": "viviendas_ocupadas", "valor": 87,
+     "soporte": "Conteo de viviendas sobre ortofoto y verificación en campo (FICTICIO)"}
+  ]
+}

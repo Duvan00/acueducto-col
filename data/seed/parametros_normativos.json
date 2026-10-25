@@ -1,0 +1,83 @@
+{
+  "_descripcion": "Parámetros normativos aplicados por el motor de cálculo. Fuente única: se cargan a la tabla parametro_normativo. Cualquier cambio normativo se registra aquí con nueva vigencia, sin borrar el anterior.",
+  "_fecha_revision": "2026-10-25",
+  "_advertencia": "Los valores se confirmaron con fuentes que citan el texto oficial (estado verificado_fuente_secundaria). Antes de emitir un diseño definitivo coteje con el texto consolidado de la Res. 0330/2017 publicado por MinVivienda o el Gestor Normativo de la CRA, que incorpora las modificaciones de la Res. 0799/2021.",
+  "parametros": [
+    {
+      "clave": "periodo_diseno", "valor": 25, "unidad": "años", "condicion": {},
+      "norma": "Resolución 0330 de 2017 (MVCT), modificada por la Resolución 0799 de 2021",
+      "articulo": "Art. 40 (modificado por el art. 1 de la Res. 0799/2021)",
+      "texto_referencia": "Período de diseño de 25 años para todos los componentes de los sistemas de acueducto, alcantarillado y aseo. Para proyectos especiales (p. ej. embalses, túneles de conducción, APP) puede aceptarse un período mayor con análisis técnicos y económicos que lo justifiquen.",
+      "estado_verificacion": "verificado_fuente_secundaria",
+      "nota": "El art. 40 fue modificado por la Res. 0799/2021: verificar la redacción consolidada."
+    },
+    {
+      "clave": "dotacion_neta_max", "valor": 120, "unidad": "L/hab·día", "condicion": {"altitud_min_excl": 2000},
+      "norma": "Resolución 0330 de 2017 (MVCT)", "articulo": "Art. 43, Tabla — Dotación neta máxima por habitante según la altura sobre el nivel del mar de la zona atendida",
+      "texto_referencia": "Altura promedio > 2000 m s.n.m.: 120 L/hab·día",
+      "estado_verificacion": "verificado_fuente_secundaria"
+    },
+    {
+      "clave": "dotacion_neta_max", "valor": 130, "unidad": "L/hab·día", "condicion": {"altitud_min": 1000, "altitud_max": 2000},
+      "norma": "Resolución 0330 de 2017 (MVCT)", "articulo": "Art. 43, Tabla",
+      "texto_referencia": "Altura promedio entre 1000 y 2000 m s.n.m.: 130 L/hab·día",
+      "estado_verificacion": "verificado_fuente_secundaria"
+    },
+    {
+      "clave": "dotacion_neta_max", "valor": 140, "unidad": "L/hab·día", "condicion": {"altitud_max_excl": 1000},
+      "norma": "Resolución 0330 de 2017 (MVCT)", "articulo": "Art. 43, Tabla",
+      "texto_referencia": "Altura promedio < 1000 m s.n.m.: 140 L/hab·día",
+      "estado_verificacion": "verificado_fuente_secundaria"
+    },
+    {
+      "clave": "perdidas_max", "valor": 25, "unidad": "%", "condicion": {},
+      "norma": "Resolución 0330 de 2017 (MVCT)", "articulo": "Art. 44 — Dotación bruta",
+      "texto_referencia": "dbruta = dneta / (1 − %p). El porcentaje de pérdidas técnicas máximas no deberá superar el 25 %.",
+      "estado_verificacion": "verificado_fuente_secundaria"
+    },
+    {
+      "clave": "k1_max", "valor": 1.3, "unidad": "-", "condicion": {"poblacion_max": 12500},
+      "norma": "Resolución 0330 de 2017 (MVCT)", "articulo": "Art. 47 — Caudales de diseño",
+      "texto_referencia": "K1 y K2 deben calcularse con registros históricos de macromedición; si no existen, se justifica su selección. Para poblaciones ≤ 12.500 hab. (al final del período de diseño) K1 no será superior a 1,3.",
+      "estado_verificacion": "verificado_fuente_secundaria"
+    },
+    {
+      "clave": "k1_max", "valor": 1.2, "unidad": "-", "condicion": {"poblacion_min_excl": 12500},
+      "norma": "Resolución 0330 de 2017 (MVCT)", "articulo": "Art. 47",
+      "texto_referencia": "Para poblaciones > 12.500 hab. K1 no será superior a 1,2.",
+      "estado_verificacion": "verificado_fuente_secundaria"
+    },
+    {
+      "clave": "k2_max", "valor": 1.6, "unidad": "-", "condicion": {"poblacion_max": 12500},
+      "norma": "Resolución 0330 de 2017 (MVCT)", "articulo": "Art. 47",
+      "texto_referencia": "Para poblaciones ≤ 12.500 hab. K2 no será superior a 1,6.",
+      "estado_verificacion": "verificado_fuente_secundaria"
+    },
+    {
+      "clave": "k2_max", "valor": 1.5, "unidad": "-", "condicion": {"poblacion_min_excl": 12500},
+      "norma": "Resolución 0330 de 2017 (MVCT)", "articulo": "Art. 47",
+      "texto_referencia": "Para poblaciones > 12.500 hab. K2 no será superior a 1,5.",
+      "estado_verificacion": "verificado_fuente_secundaria"
+    },
+    {
+      "clave": "dotacion_neta_rural_min", "valor": 20, "unidad": "L/hab·día", "condicion": {"regimen": "rural_esquema_diferencial"},
+      "norma": "Resolución 0844 de 2018 (MVCT) — requisitos técnicos para proyectos de agua y saneamiento en zonas rurales bajo esquemas diferenciales",
+      "articulo": "Artículo sobre dotación neta (numeración por confirmar)",
+      "texto_referencia": "La dotación neta debe estar entre 20 y 200 L/hab·día, diferenciando los volúmenes de subsistencia, sustentada en el estudio de oferta y demanda. Sin volúmenes de subsistencia se remite a los arts. 43, 44 y 47 de la Res. 0330/2017.",
+      "estado_verificacion": "pendiente",
+      "nota": "Aplica solo a proyectos rurales bajo esquema diferencial (Decreto 1077/2015, Libro 2, Parte 3, Título 7, Cap. 1). Confirme número de artículo y redacción."
+    },
+    {
+      "clave": "dotacion_neta_rural_max", "valor": 200, "unidad": "L/hab·día", "condicion": {"regimen": "rural_esquema_diferencial"},
+      "norma": "Resolución 0844 de 2018 (MVCT)", "articulo": "Artículo sobre dotación neta (numeración por confirmar)",
+      "texto_referencia": "Límite superior del rango de dotación neta para esquemas diferenciales rurales, incluido el volumen de subsistencia.",
+      "estado_verificacion": "pendiente"
+    },
+    {
+      "clave": "umbral_poblacion_coeficientes", "valor": 12500, "unidad": "hab", "condicion": {},
+      "norma": "Resolución 0330 de 2017 (MVCT)", "articulo": "Art. 47",
+      "texto_referencia": "Umbral de población (al final del período de diseño) que separa los límites de K1 y K2.",
+      "estado_verificacion": "verificado_fuente_secundaria"
+    }
+  ]
+}

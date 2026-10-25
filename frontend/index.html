@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Acueducto CO — Población y caudales de diseño</title>
+<link rel="stylesheet" href="/static/vendor/leaflet.css">
+<link rel="stylesheet" href="/static/vendor/leaflet.draw.css">
+<link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<header class="barra">
+  <div class="marca">
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 2s-7 7.6-7 12.5A7 7 0 0 0 19 14.5C19 9.6 12 2 12 2z"/></svg>
+    <span>Acueducto CO</span>
+    <small>Población de diseño y caudales · RAS Res. 0330/2017</small>
+  </div>
+  <input id="proyNombre" class="proy-nombre" placeholder="Nombre del proyecto" aria-label="Nombre del proyecto">
+  <div class="acciones">
+    <button id="btnAbrir" class="sec">Abrir</button>
+    <button id="btnGuardar" class="sec">Guardar</button>
+    <button data-exp="xlsx">Excel</button>
+    <button data-exp="docx">Word</button>
+    <button data-exp="pdf">PDF</button>
+  </div>
+</header>
+<div id="bannerDemo" class="banner" hidden>DATOS FICTICIOS DE DEMOSTRACIÓN — el cálculo actual no es válido para diseño.</div>
+
+<main class="layout">
+  <aside class="lateral">
+    <section class="panel">
+      <h2>Selección territorial</h2>
+      <label>Departamento <select id="selDepto"></select></label>
+      <label>Municipio <select id="selMpio" disabled></select></label>
+      <label>Centro poblado, corregimiento o vereda
+        <input id="buscador" type="search" placeholder="Nombre o código DANE (DIVIPOLA)" autocomplete="off">
+      </label>
+      <ul id="resultados" class="resultados" role="listbox"></ul>
+      <div id="hijosMpio" class="hijos"></div>
+    </section>
+    <section class="panel">
+      <h2>Localidades del sistema <span id="nLoc" class="pill">0</span></h2>
+      <p class="ayuda">Cada localidad se proyecta por separado. Ajuste cobertura y año de ingreso (etapas).</p>
+      <div id="listaLoc"></div>
+    </section>
+  </aside>
+
+  <section class="principal">
+    <nav class="tabs" role="tablist">
+      <button class="tab activo" data-tab="demografia">Demografía</button>
+      <button class="tab" data-tab="proyeccion">Proyección</button>
+      <button class="tab" data-tab="caudales">Caudales</button>
+      <button class="tab" data-tab="mapa">Mapa</button>
+      <button class="tab" data-tab="validaciones">Validaciones</button>
+      <button class="tab" data-tab="fuentes">Fuentes y normativa</button>
+      <span id="estado" class="estado"></span>
+    </nav>
+
+    <div class="vista activo" id="v-demografia"><div id="demoCont" class="vacio">Seleccione una localidad para ver su información demográfica.</div></div>
+
+    <div class="vista" id="v-proyeccion">
+      <div class="panel fila">
+        <label>Año inicial <input id="anioIni" type="number" min="2000" max="2100"></label>
+        <label>Período de diseño (años) <input id="periodo" type="number" min="1" max="60" value="25"></label>
+        <label>Año horizonte <output id="anioFin"></output></label>
+        <label>Tasa intercensal
+          <select id="criterio"><option value="promedio">Promedio de períodos comparables</option><option value="ultimo_periodo">Último período</option></select>
+        </label>
+        <label class="ancho">Justificación del período (si difiere de 25 años) <input id="justPeriodo"></label>
+      </div>
+      <div id="proyCont"></div>
+    </div>
+
+    <div class="vista" id="v-caudales">
+      <div class="grid2">
+        <div class="panel">
+          <h3>Parámetros</h3>
+          <div class="fila">
+            <label>Población de diseño <output id="qPob"></output></label>
+            <label>Altitud promedio (m s.n.m.) <input id="qAlt" type="number" placeholder="de las localidades"></label>
+            <label>Régimen
+              <select id="qReg"><option value="general">General (Res. 0330/2017)</option><option value="rural_esquema_diferencial">Rural — esquema diferencial (Res. 0844/2018)</option></select>
+            </label>
+          </div>
+          <div class="fila">
+            <label>Dotación neta (L/hab·día) <input id="qDot" type="number" step="1"></label>
+            <label>Pérdidas técnicas (%) <input id="qPer" type="number" step="0.5" value="25"></label>
+            <label>Dotación bruta <output id="qDbr"></output></label>
+          </div>
+          <label class="ancho">Justificación de la dotación (consumos medidos, SUI, facturación…) <input id="jDot"></label>
+          <div class="fila">
+            <label>K1 <input id="qK1" type="number" step="0.01"></label>
+            <label class="chk"><input id="qK1m" type="checkbox"> K1 por macromedición</label>
+            <label>K2 <input id="qK2" type="number" step="0.01"></label>
+            <label class="chk"><input id="qK2m" type="checkbox"> K2 por macromedición</label>
+          </div>
+          <label class="ancho">Justificación de K1 y K2 <input id="jK"></label>
+        </div>
+        <div class="panel">
+          <h3>Resultados</h3>
+          <div id="qCards" class="cards"></div>
+          <div id="qCumple"></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Demandas adicionales <button id="addDem" class="mini">+ Agregar</button></h3>
+        <p class="ayuda">Sólo demandas no contenidas en la dotación residencial. Marque «En dotación» para excluirla y evitar duplicidad.</p>
+        <table class="tabla" id="tDem"><thead><tr><th>Tipo</th><th>Caudal (L/s)</th><th>Incluye pérdidas</th><th>K1</th><th>K2</th><th>En dotación</th><th>Justificación</th><th></th></tr></thead><tbody></tbody></table>
+      </div>
+      <div class="panel">
+        <h3>Etapas de expansión <button id="addEt" class="mini">+ Agregar</button></h3>
+        <table class="tabla" id="tEt"><thead><tr><th>Nombre</th><th>Año inicio</th><th>Año fin</th><th>Población servida</th><th>QMD (L/s)</th><th>QMH (L/s)</th><th></th></tr></thead><tbody></tbody></table>
+      </div>
+      <div class="panel"><h3>Desarrollo del cálculo</h3><div id="qPasos"></div></div>
+      <div class="panel"><h3>Advertencias</h3><div id="qAdv"></div></div>
+    </div>
+
+    <div class="vista" id="v-mapa">
+      <div class="panel fila">
+        <label class="chk"><input type="checkbox" id="capaUnid" checked> Unidades del municipio</label>
+        <label>Cargar área (GeoJSON, KML/KMZ, Shapefile .zip) <input type="file" id="archGeo" accept=".geojson,.json,.kml,.kmz,.zip"></label>
+        <span class="ayuda">Use la herramienta de polígono para dibujar el área de influencia; luego agregue las localidades beneficiarias.</span>
+      </div>
+      <div id="mapa"></div>
+      <div id="enArea" class="panel" hidden></div>
+    </div>
+
+    <div class="vista" id="v-validaciones"><div id="valCont"></div></div>
+    <div class="vista" id="v-fuentes"><div id="fuentesCont"></div></div>
+  </section>
+</main>
+
+<dialog id="dlg"><form method="dialog"><div id="dlgCont"></div><menu><button value="cancel" class="sec">Cerrar</button></menu></form></dialog>
+
+<script src="/static/vendor/leaflet.js"></script>
+<script src="/static/vendor/leaflet.draw.js"></script>
+<script src="/static/vendor/chart.umd.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>
